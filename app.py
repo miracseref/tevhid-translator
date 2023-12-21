@@ -48,20 +48,15 @@ def get_completion(prompt, model="gpt-3.5-turbo-16k-0613", temperature=0):
     return response.choices[0].message["content"]  # type: ignore
 
 
-mode = st.radio("Modu seçiniz", ("Çeviri", "Özetleme"))
 
-if mode == "Özetleme":
-    prompt = f"""Write a well-designed summary with headings, subheadings and text bellow them based on what you can understand from the given text. The summary should be in the same language as the original. Here's the text for summarization: """
+input_lang = st.selectbox("Orijinal Metin Dili",
+                            ["Turkish", "English", "French", "German", "Arabic", "Dutch", "Persian", "Spanish",
+                            "Russian", "Azerbaijani", "Kurdish"])
+output_lang = st.selectbox("Talep Edilen Dil",
+                            ["English", "Turkish", "French", "German", "Arabic", "Dutch", "Persian", "Spanish",
+                            "Russian", "Azerbaijani", "Kurdish"])
 
-else:
-    input_lang = st.selectbox("Orijinal Metin Dili",
-                              ["Turkish", "English", "French", "German", "Arabic", "Dutch", "Persian", "Spanish",
-                               "Russian", "Azerbaijani", "Kurdish"])
-    output_lang = st.selectbox("Talep Edilen Dil",
-                               ["English", "Turkish", "French", "German", "Arabic", "Dutch", "Persian", "Spanish",
-                                "Russian", "Azerbaijani", "Kurdish"])
-
-    prompt = f"""Translate the following {input_lang} Islamic text into {output_lang}, maintaining its spiritual and cultural essence, clarity, and accuracy. Adapt cultural references and idioms thoughtfully to suit {output_lang}-speaking readers.Handle sensitive topics respectfully, crafting an engaging tone. Use your knowledge of Islamic teachings, {input_lang} culture, and {output_lang} language nuances to enrich reader understanding, but do not add any comments or extras. Here's the text for translation: """
+prompt = f"""Translate the following {input_lang} Islamic text into {output_lang}, maintaining its spiritual and cultural essence, clarity, and accuracy. Adapt cultural references and idioms thoughtfully to suit {output_lang}-speaking readers.Handle sensitive topics respectfully, crafting an engaging tone. Use your knowledge of Islamic teachings, {input_lang} culture, and {output_lang} language nuances to enrich reader understanding, but do not add any comments or extras. Here's the text for translation: """
 
 
 def read_pdf(file):
