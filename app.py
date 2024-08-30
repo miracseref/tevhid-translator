@@ -1,11 +1,13 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 import tiktoken
 import PyPDF2
 import docx
 
+
+client = OpenAI()
 
 st.set_page_config(
     page_title="Tevhidî Mütercim",
@@ -38,14 +40,20 @@ def convert_pdf_to_text(file):
     return text
 
 
-def get_completion(prompt, model="gpt-3.5-turbo-16k-0613", temperature=0):
-    messages = [{"role": "user", "content": prompt}]
-    response = openai.ChatCompletion.create(
+def get_completion(text_input, model="gpt-4o", input_lang, output_lang):
+    response = client.chat.completions.create(
         model=model,
-        messages=messages,
-        temperature=temperature,
+        messages = [
+            {"role": "system",
+                "content": (
+                    f"Translate the following text from {input_lang} to {output_lang}, maintaining its spiritual and cultural essence,
+                    clarity, and accuracy. Adapt cultural references and idioms to suit {output_lang} readers. 
+                    Use knowledge of Islamic teachings and language nuances to enhance understanding without adding any comments.")},
+            {"role": "user",
+                "content": f"Here's the text for translation: '''{text_input}'''"}
+        ]
     )
-    return response.choices[0].message["content"]  # type: ignore
+    return completion.choices[0].message["content"]  # type: ignore
 
 
 
@@ -56,7 +64,7 @@ output_lang = st.selectbox("Talep Edilen Dil",
                             ["English", "Turkish", "French", "German", "Arabic", "Dutch", "Persian", "Spanish",
                             "Russian", "Azerbaijani", "Kurdish"])
 
-prompt = f"""Translate the following {input_lang} Islamic text into {output_lang}, maintaining its spiritual and cultural essence, clarity, and accuracy. Adapt cultural references and idioms thoughtfully to suit {output_lang}-speaking readers.Handle sensitive topics respectfully, crafting an engaging tone. Use your knowledge of Islamic teachings, {input_lang} culture, and {output_lang} language nuances to enrich reader understanding, but do not add any comments or extras. Here's the text for translation: """
+prompt = f"""Translate the following {input_lang} Islamic text into {output_lang}, maintaining its spiritual and cultural essence, clarity, and accuracy. Adapt cultural references and idioms thoughtfully to suit {output_lang}-speaking readers. Use your knowledge of Islamic teachings, {input_lang} culture, and {output_lang} language nuances to enrich reader understanding, but do not add any comments or extras. Here's the text for translation: """
 
 
 def read_pdf(file):
@@ -177,7 +185,7 @@ else:
         st.session_state.translated_text = None
 
     if st.button("Metni Çevir"):
-        translated_text = get_completion(prompt + text_input)
+        translated_text = get_completion(text_input, input_lang, output_lang)
         st.session_state.translated_text = translated_text
 
     if st.session_state.translated_text is not None:
