@@ -40,7 +40,7 @@ def convert_pdf_to_text(file):
     return text
 
 
-def get_completion(text_input, model="gpt-4o", input_lang, output_lang):
+def get_completion(text_input, input_lang, output_lang, model="gpt-4o"):
     response = client.chat.completions.create(
         model=model,
         messages = [
