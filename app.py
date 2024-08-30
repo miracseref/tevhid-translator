@@ -46,9 +46,9 @@ def get_completion(text_input, input_lang, output_lang, model="gpt-4o"):
         messages = [
             {"role": "system",
                 "content": (
-                    f"Translate the following text from {input_lang} to {output_lang}, maintaining its spiritual and cultural essence,
+                    f"""Translate the following text from {input_lang} to {output_lang}, maintaining its spiritual and cultural essence,
                     clarity, and accuracy. Adapt cultural references and idioms to suit {output_lang} readers. 
-                    Use knowledge of Islamic teachings and language nuances to enhance understanding without adding any comments.")},
+                    Use knowledge of Islamic teachings and language nuances to enhance understanding without adding any comments.""")},
             {"role": "user",
                 "content": f"Here's the text for translation: '''{text_input}'''"}
         ]
