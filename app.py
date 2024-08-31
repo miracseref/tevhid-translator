@@ -1,6 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 import nltk
+from nltk.data import find
 from nltk.tokenize import word_tokenize, sent_tokenize
 import tiktoken
 import PyPDF2
@@ -26,7 +27,22 @@ if val is not None:
     elif val != st.secrets['tel'] or not st.secrets['kiraz']:
         client = OpenAI(api_key = st.text_input("OpenAI API Key"))        
 
-nltk.download('punkt')
+
+def download_nltk_resource(resource_name):
+    try:
+        find(resource_name)
+        print(f"Resource '{resource_name}' is already installed.")
+    except LookupError:
+        print(f"Resource '{resource_name}' not found. Downloading now...")
+        nltk.download(resource_name)
+
+# List of NLTK resources to check and download if necessary
+required_resources = ['punkt', 'averaged_perceptron_tagger', 'wordnet']
+
+for resource in required_resources:
+    download_nltk_resource(resource)
+
+# nltk.download('punkt')
 
 
 def convert_pdf_to_text(file):
