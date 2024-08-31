@@ -22,11 +22,11 @@ st.write("Metinlerinizi çevirmek için geliştirilmiş yapay zekâ tabanlı bir
 val = st.text_input("Kendinizi tanıtın")
 if val is not None:
     if val == st.secrets['tel']:
-        openai.api_key = erik
+        client.api_key = erik
     elif val == st.secrets['kiraz']:
-        openai.api_key = erik
+        client.api_key = erik
     elif val != st.secrets['tel'] or not st.secrets['kiraz']:
-        openai.api_key = st.text_input("OpenAI API Key")
+        client.api_key = st.text_input("OpenAI API Key")
 
 nltk.download('punkt')
 
@@ -154,8 +154,8 @@ if input_type == "Dosya":
             translated_contents = []
             all_txt = ''
             for content, name in split_contents:
-                with st.spinner(f'Çeviriyor: {name.split(".")[0]} / part_{num_of_files}...\nTamamlandığında bildirim alacaksınız...'):
-                    translated_content = get_completion(prompt + content)
+                with st.spinner(f'Çeviriyor: {name.split(".")[0]} / part_{num_of_files}'):
+                    translated_content = get_completion(content, input_lang, output_lang)
                     translated_contents.append(translated_content)
                     all_txt += translated_content + '\n'
 
