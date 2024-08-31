@@ -7,6 +7,7 @@ import tiktoken
 import PyPDF2
 import docx
 
+nltk.download()
 
 st.set_page_config(
     page_title="Tevhidî Mütercim",
@@ -14,7 +15,6 @@ st.set_page_config(
 )
 erik = st.secrets["erik"]
 
-st.caption("Tevhid AI Team")
 st.title("Tevhidî Mütercim")
 st.write("Metinlerinizi çevirmek için geliştirilmiş yapay zekâ tabanlı bir uygulama.")
 
@@ -28,19 +28,19 @@ if val is not None:
         client = OpenAI(api_key = st.text_input("OpenAI API Key"))        
 
 
-def download_nltk_resource(resource_name):
-    try:
-        find(resource_name)
-        print(f"Resource '{resource_name}' is already installed.")
-    except LookupError:
-        print(f"Resource '{resource_name}' not found. Downloading now...")
-        nltk.download(resource_name)
+# def download_nltk_resource(resource_name):
+#     try:
+#         find(resource_name)
+#         print(f"Resource '{resource_name}' is already installed.")
+#     except LookupError:
+#         print(f"Resource '{resource_name}' not found. Downloading now...")
+#         nltk.download(resource_name)
 
-# List of NLTK resources to check and download if necessary
-required_resources = ['punkt', 'averaged_perceptron_tagger', 'wordnet']
+# # List of NLTK resources to check and download if necessary
+# required_resources = ['punkt', 'averaged_perceptron_tagger', 'wordnet']
 
-for resource in required_resources:
-    download_nltk_resource(resource)
+# for resource in required_resources:
+#     download_nltk_resource(resource)
 
 # nltk.download('punkt')
 
