@@ -22,11 +22,11 @@ st.write("Metinlerinizi çevirmek için geliştirilmiş yapay zekâ tabanlı bir
 val = st.text_input("Kendinizi tanıtın")
 if val is not None:
     if val == st.secrets['tel']:
-        client.api_key = erik
+        client = OpenAI(api_key = erik)        
     elif val == st.secrets['kiraz']:
-        client.api_key = erik
+        client = OpenAI(api_key = erik)        
     elif val != st.secrets['tel'] or not st.secrets['kiraz']:
-        client.api_key = st.text_input("OpenAI API Key")
+        client = OpenAI(api_key = st.text_input("OpenAI API Key"))        
 
 nltk.download('punkt')
 
