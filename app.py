@@ -67,7 +67,7 @@ def get_completion(text_input, input_lang, output_lang, model="gpt-4o"):
                 "content": f"Here's the text for translation: '''{text_input}'''"}
         ]
     )
-    return completion.choices[0].message["content"]  # type: ignore
+    return response.choices[0].message["content"]  # type: ignore
 
 
 
