@@ -7,8 +7,6 @@ import PyPDF2
 import docx
 
 
-client = OpenAI()
-
 st.set_page_config(
     page_title="Tevhidî Mütercim",
     page_icon="📚"
