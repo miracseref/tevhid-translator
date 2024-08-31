@@ -67,7 +67,7 @@ def get_completion(text_input, input_lang, output_lang, model="gpt-4o"):
                 "content": f"Here's the text for translation: '''{text_input}'''"}
         ]
     )
-    return response.choices[0].message["content"]  # type: ignore
+    return response.choices[0].message.content  # type: ignore
 
 
 
@@ -171,7 +171,7 @@ if input_type == "Dosya":
                 with st.spinner(f'Çeviriyor: {name.split(".")[0]} / part_{num_of_files}'):
                     translated_content = get_completion(content, input_lang, output_lang)
                     translated_contents.append(translated_content)
-                    all_txt += translated_content + '\n'
+                    all_txt += translated_content + '\n' # type: ignore
 
             st.session_state.translations_dict[file_key] = {
                 "translated_contents": translated_contents, "all_txt": all_txt}
