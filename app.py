@@ -7,7 +7,7 @@ import tiktoken
 import PyPDF2
 import docx
 
-nltk.download()
+nltk.download('punkt_tab')
 
 st.set_page_config(
     page_title="Tevhidî Mütercim",
