@@ -160,7 +160,7 @@ if input_type == "Dosya":
         else:
             file_content = uploaded_file.read().decode("utf-8")
 
-        st.write("Total tokens : ", (num_tokens_from_string(file_content)))
+        st.write("Token Sayısı: ", (num_tokens_from_string(file_content)))
 
         if st.button("Dosyayı Çevir"):
             split_contents = split_file(file_content)
@@ -168,7 +168,7 @@ if input_type == "Dosya":
             translated_contents = []
             all_txt = ''
             for content, name in split_contents:
-                with st.spinner(f'Çeviriyor: {name.split(".")[0]} / part_{num_of_files}'):
+                with st.spinner(f'Çeviriyor: {name.split(".")[0]} / {num_of_files}'):
                     translated_content = get_completion(content, input_lang, output_lang)
                     translated_contents.append(translated_content)
                     all_txt += translated_content + '\n' # type: ignore
